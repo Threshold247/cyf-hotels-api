@@ -27,9 +27,10 @@ app.get("/hotels", function(req, res) {
 
 app.get("/hotels/:id", function(req, res) {
 	const {id} = req.params;
-pool
-    .query('SELECT * FROM hotels WHERE id = id')
-	  .then((result) => res.json(result.rows.filter(el =>el.id==id)))
+  pool
+    .query('SELECT * FROM hotels WHERE id = $1',[id])
+	  //.then((result) => res.json(result.rows.filter(el =>el.id==id)))
+    .then((result) => res.json(result.rows))
     .catch((e) => console.log(e));
 });
 
