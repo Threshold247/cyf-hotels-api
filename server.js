@@ -31,7 +31,22 @@ app.get("/hotels/:id", function(req, res) {
     .query('SELECT * FROM hotels WHERE id = $1',[id])
 	  //.then((result) => res.json(result.rows.filter(el =>el.id==id)))
     .then((result) => res.json(result.rows))
-    .catch((e) => console.log(e));
+    .catch((e) => console.error(e));
+});
+
+app.post("/hotels", function(req,res) {
+  const newHotelName = req.body.name;
+  const newHotelRoom = req.body.rooms;
+  const newHotelPostCode = req.body.postcode;
+
+  const createQuery = 'INSERT INTO hotels (name,rooms,postcode) VALUES ($1,$2,$3)';
+
+  pool
+      .query(createQuery,[newHotelName,newHotelRoom,newHotelPostCode])
+      .then((result) => res.send('Hotel created'))
+      .catch((error) => console.error(error));
+
+      console.log(newHotelName);
 });
 
 
