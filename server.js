@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const pool = require("./postgres");
 const bodyParser = require("body-parser");
-
+//email validator to use for customer endpoint
+const validator = require("email-validator");
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
@@ -21,15 +22,18 @@ app.route("/customers")
 // .post(function() {
 //   const newCustName = req.body.name;
 //   const newCustEmail= req.body.email;
-//   const newHotelPostCode = req.body.postcode;
+//   const newCustAddress = req.body.address;
+//   const newCustCity = req.body.city;
+//   const newCustPostCode = req.body.postcode;
+//   const newCustCountry = req.body.country;
 
 
 
 
-//   const createQuery = 'INSERT INTO customers (name,rooms,postcode) VALUES ($1,$2,$3)';
+//   const createQuery = 'INSERT INTO customers (name,email,address,city,postcode,country) VALUES ($1,$2,$3,$4,$5,$6)';
 
-//   if (!Number.isInteger(newHotelRooms) || newHotelRooms <= 0 || newHotelName === undefined 
-//     || newHotelPostCode ===  undefined) {
+//   if (newCustName === undefined || newCustEmail === undefined||!validator.validate(newCustEmail) ||newCustAddress === undefined || newCustCity === undefined
+//     || newCustPostCode ===  undefined || newCustCountry === undefined) {
 //     return res
 //       .status(400)
 //       .send("Please check the field inputs");
@@ -67,7 +71,7 @@ app.route("/hotels")
 
   const createQuery = 'INSERT INTO hotels (name,rooms,postcode) VALUES ($1,$2,$3)';
 
-  if (!Number.isInteger(newHotelRooms) || newHotelRooms <= 0 || newHotelName === undefined 
+  if (!Number.isInteger(newHotelRooms) || newHotelRooms <= 0 || newHotelName === undefined
     || newHotelPostCode ===  undefined) {
     return res
       .status(400)
