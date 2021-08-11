@@ -9,20 +9,88 @@ app.use(express.json());
 
 
 
-app.get("/customers", function(req, res) {
+
+app.route("/customers")
+.get(function(req, res) {
     console.log(req.originalUrl);
     pool
-        .query('SELECT * FROM customers')
-        .then(result=> res.json(result.rows))
-        .catch((error) => console.log(error));
-});
+      .query('SELECT * FROM customers')
+      .then(result=> res.json(result.rows))
+      .catch((error) => console.log(error));
+})
+// .post(function() {
+//   const newCustName = req.body.name;
+//   const newCustEmail= req.body.email;
+//   const newHotelPostCode = req.body.postcode;
 
-app.get("/hotels", function(req, res) {
+
+
+
+//   const createQuery = 'INSERT INTO customers (name,rooms,postcode) VALUES ($1,$2,$3)';
+
+//   if (!Number.isInteger(newHotelRooms) || newHotelRooms <= 0 || newHotelName === undefined 
+//     || newHotelPostCode ===  undefined) {
+//     return res
+//       .status(400)
+//       .send("Please check the field inputs");
+//   }
+//    pool
+//     .query("SELECT * FROM hotels WHERE name=$1", [newHotelName])
+//     .then((result) => {
+//       if (result.rows.length > 0) {
+//         return res
+//           .status(400)
+//           .send("An hotel with the same name already exists!");
+//       } else {
+//         const query =
+//           "INSERT INTO hotels (name, rooms, postcode) VALUES ($1, $2, $3)";
+//         pool
+//           .query(query, [newHotelName, newHotelRooms, newHotelPostcode])
+//           .then(() => res.send("Hotel created!"))
+//           .catch((e) => console.error(e));
+//       }
+//     });
+// });
+
+
+app.route("/hotels")
+.get (function(req, res) {
   pool
     .query('SELECT * FROM hotels')
     .then((result) => res.json(result.rows))
     .catch((error) => console.log(error));
+})
+.post (function(req,res) {
+  const newHotelName = req.body.name;
+  const newHotelRooms = req.body.rooms;
+  const newHotelPostCode = req.body.postcode;
+
+  const createQuery = 'INSERT INTO hotels (name,rooms,postcode) VALUES ($1,$2,$3)';
+
+  if (!Number.isInteger(newHotelRooms) || newHotelRooms <= 0 || newHotelName === undefined 
+    || newHotelPostCode ===  undefined) {
+    return res
+      .status(400)
+      .send("Please check the field inputs");
+  }
+   pool
+    .query("SELECT * FROM hotels WHERE name=$1", [newHotelName])
+    .then((result) => {
+      if (result.rows.length > 0) {
+        return res
+          .status(400)
+          .send("An hotel with the same name already exists!");
+      } else {
+        const query =
+          "INSERT INTO hotels (name, rooms, postcode) VALUES ($1, $2, $3)";
+        pool
+          .query(query, [newHotelName, newHotelRooms, newHotelPostcode])
+          .then(() => res.send("Hotel created!"))
+          .catch((e) => console.error(e));
+      }
+    });
 });
+
 
 
 app.get("/hotels/:id", function(req, res) {
@@ -34,20 +102,6 @@ app.get("/hotels/:id", function(req, res) {
     .catch((e) => console.error(e));
 });
 
-app.post("/hotels", function(req,res) {
-  const newHotelName = req.body.name;
-  const newHotelRoom = req.body.rooms;
-  const newHotelPostCode = req.body.postcode;
-
-  const createQuery = 'INSERT INTO hotels (name,rooms,postcode) VALUES ($1,$2,$3)';
-
-  pool
-      .query(createQuery,[newHotelName,newHotelRoom,newHotelPostCode])
-      .then((result) => res.send('Hotel created'))
-      .catch((error) => console.error(error));
-
-      console.log(newHotelName);
-});
 
 
 app.get("/bookings", function(req, res) {
