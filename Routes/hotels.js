@@ -4,8 +4,6 @@ const router = express.Router();
 const { Pool } = require("pg");
 const bodyParser = require("body-parser");
 
-require("dotenv").config();
-
 const pool = new Pool({});
 
 app.use(express.urlencoded({ extended: false }));

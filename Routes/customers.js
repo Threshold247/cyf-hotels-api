@@ -5,7 +5,6 @@ const { Pool } = require("pg");
 const bodyParser = require("body-parser");
 //email validator to use for customer endpoint
 const validator = require("email-validator");
-require("dotenv").config();
 
 const pool = new Pool({});
 
