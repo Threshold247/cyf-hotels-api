@@ -2,8 +2,7 @@ const express = require("express");
 const app = express();
 const { Pool } = require("pg");
 const bodyParser = require("body-parser");
-//email validator to use for customer endpoint
-const validator = require("email-validator");
+
 require("dotenv").config();
 const bookings = require("./Routes/bookings.js");
 const customers = require("./Routes/customers.js");
