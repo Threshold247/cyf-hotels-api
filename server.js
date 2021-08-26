@@ -35,7 +35,6 @@ app.get("/", function (req, res) {
       <form action="/hotels" method="GET">
         <button class="btn btn-info" type="submit" value="GET">Get All hotels</button>
       </form>
-
   </body>
   </html>`);
 });
@@ -44,14 +43,6 @@ app.use("/bookings", bookings);
 app.use("/customers", customers);
 app.use("/hotels", hotels);
 
-
-
-// app.get("/bookings", function (req, res) {
-//   pool
-//     .query("SELECT * FROM bookings")
-//     .then((result) => res.json(result.rows))
-//     .catch((error) => console.log(error));
-// });
 
 app.listen(process.env.PORT, function () {
   console.log(
