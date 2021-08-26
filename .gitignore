@@ -1,1 +1,4 @@
 postgres.js
+node_modules/.bin/mime
+node_modules/.bin/semver
+.env
