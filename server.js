@@ -26,12 +26,16 @@ app.get("/", function (req, res) {
       <title>Document</title>
   </head>
   <body>
-      <form action="/hotels" method="GET">
-        <button class="btn btn-info" type="submit" value="GET">Get All hotels</button>
+      <form action="/bookings" method="GET">
+        <button class="btn btn-info" type="submit" value="GET">Get All bookings</button>
       </form>
       <form action="/customers" method="GET">
         <button class="btn btn-info" type="submit" value="GET">Get All customers</button>
       </form>
+      <form action="/hotels" method="GET">
+        <button class="btn btn-info" type="submit" value="GET">Get All hotels</button>
+      </form>
+
   </body>
   </html>`);
 });
